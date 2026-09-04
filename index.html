@@ -1436,13 +1436,20 @@
     .socials {
       display: flex;
       flex-direction: row;
-      gap: clamp(.9rem, 1.5vw, 1.5rem);
+      gap: clamp(.6rem, 1.2vw, 1rem);
     }
 
     .socials a {
       display: flex;
-      color: inherit;
-      transition: opacity .2s ease, transform .2s ease;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(23, 90, 103, 0.12);
+      border: 1.5px solid rgba(23, 90, 103, 0.25);
+      color: var(--ink);
+      transition: background .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease;
       animation: rise-in .72s cubic-bezier(.22, 1, .36, 1) both;
     }
 
@@ -1452,26 +1459,40 @@
     .socials a:nth-child(4) { animation-delay: .82s; }
 
     .socials a:hover {
-      opacity: .65;
-      transform: translateY(-2px);
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--cream);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px -6px rgba(23, 90, 103, .45);
     }
 
     .socials svg {
-      width: 26px;
-      height: 26px;
+      width: 18px;
+      height: 18px;
     }
 
     .legal {
       display: flex;
       flex-direction: row;
-      gap: clamp(1.15rem, 2.6vw, 3rem);
+      align-items: center;
+      gap: 0;
       flex-wrap: wrap;
     }
 
     .legal a {
       text-decoration: none;
-      color: inherit;
+      color: var(--ink);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: .35rem .85rem;
+      border: 1.5px solid rgba(23, 90, 103, 0.22);
+      border-radius: 999px;
+      margin: .2rem .3rem;
+      background: rgba(23, 90, 103, 0.07);
+      transition: background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
       animation: rise-in .72s cubic-bezier(.22, 1, .36, 1) both;
+      white-space: nowrap;
     }
 
     .legal a:nth-child(1) { animation-delay: .7s; }
@@ -1479,9 +1500,13 @@
     .legal a:nth-child(3) { animation-delay: .86s; }
 
     .legal a:hover {
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      background: var(--ink);
+      color: var(--cream);
+      border-color: var(--ink);
+      box-shadow: 0 6px 16px -6px rgba(23, 90, 103, .4);
+      text-decoration: none;
     }
+
 
     .sr-only {
       position: absolute;
@@ -1809,9 +1834,9 @@
         </div>
         
         <nav class="legal" aria-label="Legal">
-          <a href="#">Privacy Notice</a>
-          <a href="#">Terms &amp; Policies</a>
-          <a href="#">Cookie Notice</a>
+          <a href="https://sahapathika-holidays-dc.vercel.app/#">Privacy Notice</a>
+          <a href="https://sahapathika-holidays-dc.vercel.app/#">Terms &amp; Policies</a>
+          <a href="https://sahapathika-holidays-dc.vercel.app/#">Cookie Notice</a>
         </nav>
       </div>
     </div>
