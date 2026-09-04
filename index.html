@@ -37,11 +37,189 @@
   @keyframes sway { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
   ::selection { background: #FDE8E4; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+  /* =====================================================
+     GLOBAL RESPONSIVE OVERRIDES – all breakpoints
+     ===================================================== */
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* Prevent any element from causing horizontal scroll */
+  body { overflow-x: hidden; }
+
+  /* Make all images, videos and iframes fluid by default */
+  img, video, iframe, svg { max-width: 100%; height: auto; }
+
+  /* ── 1280px+ : large desktops (default styles handle this) ─────────── */
+
+  /* ── < 1100px : medium-large screens / laptops ──────────────────────── */
+  @media (max-width: 1100px) {
+    /* Header: tighten nav gap */
+    header nav button { padding: 10px 10px !important; font-size: 13px !important; }
+    header a[href^="tel"] { display: none !important; }
+  }
+
+  /* ── < 900px : tablets landscape ────────────────────────────────────── */
+  @media (max-width: 900px) {
+    /* Hero adjustments */
+    section[style*="min-height:min(92vh"] {
+      min-height: 70vh !important;
+    }
+
+    /* About section: hide the decorative overlay image */
+    div[style*="position:absolute;right:-28px"],
+    div[style*="position:absolute;left:-26px"] {
+      display: none !important;
+    }
+
+    /* About main image: remove fixed height so it adapts */
+    div[style*="height:440px"] {
+      height: clamp(260px, 45vw, 440px) !important;
+    }
+
+    /* Package rail: allow horizontal scrolling on tablet */
+    div[style*="scroll-snap-type:x mandatory"] {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+  }
+
+  /* ── < 768px : tablets portrait & large phones ───────────────────────── */
+  @media (max-width: 768px) {
+
+    /* Header: hide desktop nav, show compact version */
+    header nav { display: none !important; }
+    header div[style*="margin-left:auto"] button[style*="border-radius:999px"] {
+      padding: 11px 16px !important;
+      font-size: 12.5px !important;
+    }
+
+    /* Hero: stack columns, shrink padding */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Hero booking widget: full width */
+    div[style*="position:relative;background:#FAF6EF;border-radius:26px"] {
+      max-width: 100% !important;
+    }
+
+    /* Search bar: stack fields vertically */
+    div[style*="display:flex;flex-wrap:wrap;gap:2px;border:1.5px"] {
+      flex-direction: column !important;
+    }
+    div[style*="display:flex;flex-wrap:wrap;gap:2px;border:1.5px"] > * {
+      border-radius: 14px !important;
+      border: 1.5px solid rgba(22,33,29,.12) !important;
+    }
+    div[style*="display:flex;flex-wrap:wrap;gap:2px;border:1.5px"] button[style*="background:#E5483D"] {
+      width: 100% !important;
+      border-radius: 14px !important;
+    }
+
+    /* Package cards grid: single column */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,270px)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Gallery mosaic: 2-col on tablet */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,150px)"] {
+      grid-template-columns: 1fr 1fr !important;
+      grid-auto-rows: 160px !important;
+    }
+
+    /* Stats section: 2-col */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,160px)"] {
+      grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* About grid: full width stacked */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px)"] {
+      grid-template-columns: 1fr !important;
+    }
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,320px)"] {
+      grid-template-columns: 1fr !important;
+    }
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,300px)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Package detail: stack sidebar below content */
+    div[style*="flex:1 1 240px;max-width:302px"] {
+      position: static !important;
+      max-width: 100% !important;
+      width: 100% !important;
+    }
+
+    /* Testimonial cards */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,290px)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* CTA banner: single col */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,320px)"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  /* ── < 540px : large phones ──────────────────────────────────────────── */
+  @media (max-width: 540px) {
+
+    /* Gallery: single column */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,150px)"] {
+      grid-template-columns: 1fr !important;
+      grid-auto-rows: 220px !important;
+      height: auto !important;
+    }
+
+    /* Stats: single column */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,160px)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* FAQ list: full width items */
+    div[style*="grid-template-columns:repeat(auto-fit,minmax(min(100%,240px)"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Hero heading: tighter leading */
+    h1 span { word-break: break-word !important; }
+
+    /* Contact form: full-width fields */
+    div[style*="grid-template-columns:1fr 1fr;gap:20px"] {
+      grid-template-columns: 1fr !important;
+    }
+    div[style*="grid-template-columns:1fr 1fr;gap:16px"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Package card: full width */
+    div[style*="flex:0 0 clamp(280px"] {
+      flex: 0 0 90vw !important;
+    }
+
+    /* Header CTA text: truncate if needed */
+    header div[style*="margin-left:auto"] button {
+      padding: 10px 12px !important;
+      font-size: 12px !important;
+    }
+  }
+
+  /* ── < 375px : small phones ──────────────────────────────────────────── */
+  @media (max-width: 375px) {
+    header div[style*="margin-left:auto"] button[style*="Plan"] {
+      display: none !important;
+    }
+    /* Give header logo more room */
+    header div[style*="gap:14px;cursor:pointer"] span[style*="letter-spacing"] {
+      display: none !important;
+    }
+  }
+
 </style>
 <script src="./image-slot.js"></script>
 </helmet>
 
-<div style="min-height:100vh;background:#FAF6EF">
+<div style="min-height:100vh;background:#FAF6EF;overflow-x:hidden;">
 
   <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
     <div style="{{ preloaderStyle }}">
@@ -85,14 +263,14 @@
 
     <sc-if value="{{ menuDest }}" hint-placeholder-val="{{ false }}">
       <div style="position:absolute;left:0;right:0;top:100%;background:#FAF6EF;color:#1B1A17;border-top:1px solid rgba(255,255,255,.08);box-shadow:0 26px 50px -24px rgba(22,33,29,.42);animation:fadein .18s both">
-        <div style="max-width:1280px;margin:0 auto;padding:34px 24px 38px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px">
+        <div style="max-width:1280px;margin:0 auto;padding:34px 24px 38px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:40px">
           <sc-for list="{{ destGroups }}" as="g" hint-placeholder-count="3">
             <div style="animation:rise .4s both">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
                 <span style="font-size:10.5px;letter-spacing:.24em;font-weight:800;color:#C4362C">{{ g.title }}</span>
                 <span style="{{ g.badgeStyle }}">{{ g.badge }}</span>
               </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:16px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,84px),1fr));gap:16px">
                 <sc-for list="{{ g.items }}" as="d" hint-placeholder-count="5">
                   <button style="background:none;border:0;padding:0;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px;transition:transform .25s" style-hover="transform:translateY(-4px)" onClick="{{ d.go }}">
                     <span style="{{ d.thumbStyle }}">{{ d.initial }}</span>
@@ -108,7 +286,7 @@
 
     <sc-if value="{{ menuPkg }}" hint-placeholder-val="{{ false }}">
       <div style="position:absolute;left:0;right:0;top:100%;background:#FAF6EF;color:#1B1A17;box-shadow:0 26px 50px -24px rgba(22,33,29,.42);animation:fadein .18s both">
-        <div style="max-width:1280px;margin:0 auto;padding:32px 24px 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px">
+        <div style="max-width:1280px;margin:0 auto;padding:32px 24px 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:40px">
           <div>
             <div style="font-size:10.5px;letter-spacing:.24em;color:#B5822A;font-weight:800;margin-bottom:16px">BY CATEGORY</div>
             <div style="display:grid;gap:2px">
@@ -149,10 +327,10 @@
       </sc-if>
       <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(22,33,29,.86) 0%,rgba(22,33,29,.6) 42%,rgba(22,33,29,.18) 72%);pointer-events:none"></div>
 
-      <div style="position:relative;max-width:1280px;margin:0 auto;padding:120px 24px 96px;width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:56px;align-items:center;pointer-events:none">
+      <div style="position:relative;max-width:1280px;margin:0 auto;padding:clamp(64px, 10vw, 120px) 24px clamp(48px, 8vw, 96px);width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:56px;align-items:center;pointer-events:none">
         <div style="color:#FAF6EF;max-width:680px;position:relative">
-          <span style="position:absolute;left:-120px;top:-60px;width:340px;height:340px;border-radius:999px;background:radial-gradient(circle,rgba(229,72,61,.42),transparent 68%);filter:blur(46px);animation:drift 18s ease-in-out infinite;pointer-events:none"></span>
-          <span style="position:absolute;left:180px;top:120px;width:300px;height:300px;border-radius:999px;background:radial-gradient(circle,rgba(95,169,140,.36),transparent 68%);filter:blur(48px);animation:drift2 22s ease-in-out infinite;pointer-events:none"></span>
+          <span style="position:absolute;left:-120px;top:-60px;width:clamp(200px, 50vw, 340px);height:clamp(200px, 50vw, 340px);border-radius:999px;background:radial-gradient(circle,rgba(229,72,61,.42),transparent 68%);filter:blur(46px);animation:drift 18s ease-in-out infinite;pointer-events:none"></span>
+          <span style="position:absolute;left:180px;top:120px;width:clamp(180px, 45vw, 300px);height:clamp(180px, 45vw, 300px);border-radius:999px;background:radial-gradient(circle,rgba(95,169,140,.36),transparent 68%);filter:blur(48px);animation:drift2 22s ease-in-out infinite;pointer-events:none"></span>
           <div style="position:relative;display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(229,72,61,.6);background:rgba(229,72,61,.14);border-radius:999px;padding:8px 16px;font-size:11.5px;letter-spacing:.2em;font-weight:700;color:#FFD5D0;animation:rise .7s both;backdrop-filter:blur(6px)">
             <span style="width:5px;height:5px;border-radius:99px;background:#E5483D"></span>INDIA &amp; ABROAD
           </div>
@@ -243,7 +421,7 @@
     </section>
 
     <section style="background:#FFFFFF;color:#1B1A17;border-bottom:1px solid rgba(22,33,29,.07)">
-      <div style="max-width:1280px;margin:0 auto;padding:52px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(32px, 5vw, 52px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px">
         <div style="display:flex;gap:18px;align-items:flex-start;animation:rise .7s both">
           <svg width="42" height="42" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="flex:0 0 auto"><path d="M24 5 40 11v13c0 10-7 16.5-16 19-9-2.5-16-9-16-19V11L24 5Z" stroke="#D9A441" strokeWidth="1.5" strokeLinejoin="round" style="stroke-dasharray:1400;animation:draw 1.6s .2s both"/><path d="m17 24 5 5 10-10" stroke="#E5483D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style="stroke-dasharray:1400;animation:draw 1.6s .8s both"/></svg>
           <div><div style="font-weight:800;font-size:16.5px;margin-bottom:6px">IATA-Approved &amp; Trusted</div><p style="margin:0;font-size:14px;line-height:1.6;color:#6B655C">Honest rates and the best prices across India — no surprise line items.</p></div>
@@ -267,7 +445,7 @@
       </div>
     </section>
 
-    <section style="max-width:1280px;margin:0 auto;padding:96px 24px 24px">
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(56px, 8vw, 96px) 24px 24px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:44px">
         <div style="max-width:600px">
           <div style="font-size:11px;letter-spacing:.24em;font-weight:800;color:#C4362C;margin-bottom:14px">TOP CATEGORIES</div>
@@ -275,7 +453,7 @@
         </div>
         <p style="margin:0;max-width:340px;font-size:15px;line-height:1.7;color:#6B655C">Every category is colour-coded across the site, so you always know what kind of journey you're looking at.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,215px),1fr));gap:18px">
         <button style="{{ catCardStyle }}" onClick="{{ catKerala }}">
           <svg width="46" height="46" viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M8 42h32M12 42V27l12-9 12 9v15M17 27h14M19 21h10M24 9v5M21 12h6" stroke="#16211D" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/><path d="M20 42v-8h8v8" stroke="#E5483D" strokeWidth="1.6"/></svg>
           <div style="font-weight:800;font-size:16px;margin-top:18px">Kerala Packages</div>
@@ -327,16 +505,16 @@
       </div>
     </section>
 
-    <section style="max-width:1280px;margin:0 auto;padding:96px 24px">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:64px;align-items:center">
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(56px, 8vw, 96px) 24px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:64px;align-items:center">
         <div style="position:relative">
           <div style="border-radius:26px;overflow:hidden;height:440px;box-shadow:0 24px 60px -28px rgba(22,33,29,.5)">
             <image-slot id="sh-about-1" src="https://i.pinimg.com/736x/22/93/a2/2293a2dfbe58a3b0f0ebd6de0396ea65.jpg" shape="rect" placeholder="Houseboat moored at dusk, Alleppey"></image-slot>
           </div>
-          <div style="position:absolute;right:-28px;bottom:-42px;width:220px;height:250px;border-radius:22px;overflow:hidden;border:8px solid #FAF6EF;box-shadow:0 20px 44px -22px rgba(22,33,29,.5)">
+          <div style="position:absolute;right:clamp(-14px, -4vw, -28px);bottom:clamp(-21px, -6vw, -42px);width:clamp(140px, 45vw, 220px);height:clamp(160px, 50vw, 250px);border-radius:22px;overflow:hidden;border:8px solid #FAF6EF;box-shadow:0 20px 44px -22px rgba(22,33,29,.5)">
             <image-slot id="sh-about-2" src="https://i.pinimg.com/736x/75/1e/96/751e9636e5a9f3b2ef002932b1817d3d.jpg" shape="rect" placeholder="Munnar tea terraces in mist"></image-slot>
           </div>
-          <div style="position:absolute;left:-26px;top:34px;background:#D9A441;color:#16211D;border-radius:18px;padding:16px 20px;box-shadow:0 16px 34px -16px rgba(22,33,29,.5)">
+          <div style="position:absolute;left:clamp(-13px, -4vw, -26px);top:clamp(17px, 5vw, 34px);background:#D9A441;color:#16211D;border-radius:18px;padding:16px 20px;box-shadow:0 16px 34px -16px rgba(22,33,29,.5)">
             <div style="font-family:'Fraunces',serif;font-size:30px;line-height:1">10+</div>
             <div style="font-size:11px;font-weight:800;letter-spacing:.12em;margin-top:4px">YEARS OF TRUST</div>
           </div>
@@ -345,7 +523,7 @@
           <div style="font-size:11px;letter-spacing:.24em;font-weight:800;color:#C4362C;margin-bottom:14px">ABOUT SAHAPATHIKA</div>
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.08;letter-spacing:-.02em;margin:0 0 22px">India &amp; <span style="font-style:italic;color:#E5483D">abroad planners</span></h2>
           <p style="font-size:16.5px;line-height:1.75;color:#3A4A44;margin:0 0 18px">Since 2015, Sahapathika Holidays has been centered around bringing our clients the best in regard and quality travel arrangements. We are an IATA-approved travel company with offices in Trivandrum, Cochin, Vasco-Goa, Bangalore, Kolkata &amp; New Delhi — offering air tickets, hotel bookings, MICE, events and corporate tour packages.</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:30px 0 32px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 200px), 1fr));gap:14px;margin:30px 0 32px">
             <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;font-weight:600;line-height:1.5"><span style="color:#5FA98C;font-size:17px;line-height:1.2">✓</span>Competitive pricing, wide range</div>
             <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;font-weight:600;line-height:1.5"><span style="color:#5FA98C;font-size:17px;line-height:1.2">✓</span>24/7 client support</div>
             <div style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;font-weight:600;line-height:1.5"><span style="color:#5FA98C;font-size:17px;line-height:1.2">✓</span>Best hotels within your budget</div>
@@ -394,8 +572,8 @@
       </div>
     </section>
 
-    <section style="max-width:1280px;margin:0 auto;padding:96px 24px">
-      <div style="background:#DCEEE7;border-radius:32px;color:#16211D;padding:clamp(32px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center;overflow:hidden;position:relative">
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(56px, 8vw, 96px) 24px">
+      <div style="background:#DCEEE7;border-radius:32px;color:#16211D;padding:clamp(32px,4vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:56px;align-items:center;overflow:hidden;position:relative">
         <div>
           <div style="display:inline-flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:.16em;font-weight:800;color:#16211D;background:#D9A441;padding:6px 12px;border-radius:99px;margin-bottom:20px">POLICY — TO BE CONFIRMED WITH CLIENT</div>
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.02em;margin:0 0 22px">Plans change. <span style="font-style:italic;color:#E5483D">We get it.</span></h2>
@@ -426,7 +604,7 @@
     </section>
 
     <section style="max-width:1280px;margin:0 auto;padding:0 24px 96px">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:56px;align-items:center">
         <div>
           <div style="font-size:11px;letter-spacing:.24em;font-weight:800;color:#C4362C;margin-bottom:14px">TRAVELLER STORIES</div>
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,4vw,50px);line-height:1.08;letter-spacing:-.02em;margin:0 0 18px">What our <span style="font-style:italic;color:#E5483D">travellers say</span></h2>
@@ -453,7 +631,7 @@
     </section>
 
     <section ref="{{ statsRef }}" style="background:#FAF6EF;border-top:1px solid rgba(22,33,29,.09);border-bottom:1px solid rgba(22,33,29,.09)">
-      <div style="max-width:1280px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px">
+      <div style="max-width:1280px;margin:0 auto;padding:clamp(40px, 6vw, 64px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:24px">
         <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
           <div style="text-align:center">
             <div style="font-family:'Fraunces',serif;font-size:clamp(38px,4.4vw,58px);line-height:1;letter-spacing:-.03em;color:#16211D;font-variant-numeric:tabular-nums">{{ s.value }}</div>
@@ -480,7 +658,7 @@
           <div style="font-size:11px;letter-spacing:.24em;font-weight:800;color:#C4362C;margin-bottom:14px">HOW IT WORKS</div>
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-.02em;margin:0">Three steps to <span style="font-style:italic;color:#E5483D">your holiday</span></h2>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:26px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:26px">
           <div style="background:#FAF6EF;border-radius:24px;padding:38px 32px;position:relative;animation:rise .7s both">
             <div style="font-family:'Fraunces',serif;font-size:60px;line-height:1;color:rgba(229,72,61,.18);position:absolute;top:22px;right:28px">01</div>
             <svg width="44" height="44" viewBox="0 0 48 48" fill="none" aria-hidden="true"><rect x="7" y="10" width="34" height="28" rx="4" stroke="#E5483D" strokeWidth="1.6"/><path d="M13 19h16M13 26h11" stroke="#16211D" strokeWidth="1.6" strokeLinecap="round"/><circle cx="33" cy="28" r="5" stroke="#16211D" strokeWidth="1.6"/></svg>
@@ -503,7 +681,7 @@
       </div>
     </section>
 
-    <section style="max-width:1280px;margin:0 auto;padding:96px 24px">
+    <section style="max-width:1280px;margin:0 auto;padding:clamp(56px, 8vw, 96px) 24px">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:40px">
         <div>
           <div style="font-size:11px;letter-spacing:.24em;font-weight:800;color:#C4362C;margin-bottom:14px">ROYAL LIFE — THE JOURNAL</div>
@@ -511,7 +689,7 @@
         </div>
         <span style="font-size:11px;font-weight:800;letter-spacing:.12em;padding:8px 14px;border-radius:99px;background:#DCEEE7;color:#2F7A63">TEMPLATE — ARTICLES TBC</span>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:26px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:26px">
         <sc-for list="{{ journal }}" as="j" hint-placeholder-count="3">
           <div style="background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 12px 32px -14px rgba(22,33,29,.18);cursor:pointer;transition:transform .3s" style-hover="transform:translateY(-6px)">
             <div style="height:196px;overflow:hidden;position:relative"><div style="position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.7,.3,1)" style-hover="transform:scale(1.08)"><image-slot id="{{ j.slotId }}" src="{{ j.photo }}" shape="rect" placeholder="{{ j.photoHint }}"></image-slot></div></div>
@@ -530,7 +708,7 @@
         <div style="font-size:11px;letter-spacing:.24em;font-weight:800;color:#C4362C;margin-bottom:14px">FROM OUR TRAVELLERS</div>
         <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-.02em;margin:0">@sahapathikaholidays</h2>
       </div>
-      <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));grid-auto-rows:150px;gap:14px">
+      <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));grid-auto-rows:150px;gap:14px">
         <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
           <div style="{{ g.wrapStyle }}" onClick="{{ g.open }}">
             <image-slot id="{{ g.slotId }}" src="{{ g.photo }}" shape="rect" placeholder="{{ g.hint }}"></image-slot>
@@ -551,7 +729,7 @@
     </section>
 
     <section style="background:#DCEEE7;padding:74px 0">
-      <div style="max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:center">
+      <div style="max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:48px;align-items:center">
         <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,3.2vw,42px);line-height:1.14;letter-spacing:-.02em;margin:0">Subscribe for <span style="font-style:italic;color:#E5483D">10% off</span> your first holiday with us.</h2>
         <sc-if value="{{ notSubscribed }}" hint-placeholder-val="{{ true }}">
           <div style="display:flex;gap:10px;background:#FAF6EF;border-radius:999px;padding:8px 8px 8px 24px;box-shadow:0 12px 30px -16px rgba(22,33,29,.3)">
@@ -619,7 +797,7 @@
             </div>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:24px">
             <sc-for list="{{ results }}" as="p" hint-placeholder-count="4">
               <div style="background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 12px 32px -14px rgba(22,33,29,.18);cursor:pointer;transition:transform .34s cubic-bezier(.2,.7,.3,1),box-shadow .34s;animation:rise .5s both" style-hover="transform:translateY(-8px);box-shadow:0 28px 54px -20px rgba(22,33,29,.32)" onClick="{{ p.go }}">
                 <div style="position:relative;height:212px;overflow:hidden">
@@ -640,7 +818,7 @@
             </sc-for>
           </div>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;margin-top:24px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:24px;margin-top:24px">
             <div style="background:#DCEEE7;border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:14px;animation:rise .6s both">
               <span style="align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.14em;background:#fff;color:#2F7A63;padding:6px 12px;border-radius:99px">COMING SOON</span>
               <div style="font-family:'Fraunces',serif;font-size:26px;line-height:1.2">Pan-India packages</div>
@@ -671,7 +849,7 @@
   <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
   <main>
     <section style="max-width:1328px;margin:0 auto;padding:26px 24px 0">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));grid-template-rows:150px 150px;gap:12px;height:312px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));grid-template-rows:150px 150px;gap:12px;height:312px">
         <div style="grid-row:span 2;border-radius:24px;overflow:hidden;position:relative">
           <image-slot id="sh-d1" src="{{ detail.photo }}" shape="rect" placeholder="{{ detail.hint }}"></image-slot>
         </div>
@@ -692,7 +870,7 @@
           </div>
           <h1 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(32px,4vw,52px);line-height:1.06;letter-spacing:-.025em;margin:0 0 26px">{{ detail.title }}</h1>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:1px;background:rgba(22,33,29,.1);border-radius:18px;overflow:hidden;margin-bottom:44px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,135px),1fr));gap:1px;background:rgba(22,33,29,.1);border-radius:18px;overflow:hidden;margin-bottom:44px">
             <sc-for list="{{ detail.facts }}" as="f" hint-placeholder-count="5">
               <div style="background:#FAF6EF;padding:20px 18px">
                 <div style="font-size:10.5px;letter-spacing:.14em;font-weight:800;color:#B5822A;margin-bottom:8px">{{ f.k }}</div>
@@ -705,7 +883,7 @@
           <p style="font-size:16.5px;line-height:1.8;color:#3A4A44;margin:0 0 40px;max-width:720px;text-wrap:pretty">{{ detail.overview }}</p>
 
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:32px;letter-spacing:-.02em;margin:0 0 20px">Highlights</h2>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:48px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-bottom:48px">
             <sc-for list="{{ detail.highlights }}" as="h" hint-placeholder-count="6">
               <div style="display:flex;gap:12px;align-items:flex-start;background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 6px 16px -12px rgba(22,33,29,.2)">
                 <span style="color:#5FA98C;font-size:16px;line-height:1.3;flex:0 0 auto">◆</span>
@@ -751,7 +929,7 @@
           </div>
 
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:32px;letter-spacing:-.02em;margin:0 0 20px">What's included</h2>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:32px;margin-bottom:48px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:32px;margin-bottom:48px">
             <div style="background:#fff;border-radius:20px;padding:26px">
               <div style="font-weight:800;font-size:14px;color:#2F7A63;margin-bottom:16px;display:flex;align-items:center;gap:8px"><span style="width:20px;height:20px;border-radius:99px;background:rgba(95,169,140,.22);color:#2F7A63;display:flex;align-items:center;justify-content:center;font-size:12px">✓</span>Included</div>
               <div style="display:grid;gap:11px">
@@ -852,7 +1030,7 @@
 
       <div style="margin-top:20px">
         <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(28px,3.2vw,40px);letter-spacing:-.02em;margin:0 0 24px">You may also like</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:22px">
           <sc-for list="{{ related }}" as="p" hint-placeholder-count="3">
             <div style="background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 12px 30px -14px rgba(22,33,29,.18);cursor:pointer;transition:transform .3s" style-hover="transform:translateY(-6px)" onClick="{{ p.go }}">
               <div style="position:relative;height:180px;overflow:hidden"><div style="position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.7,.3,1)" style-hover="transform:scale(1.09)"><image-slot id="{{ p.relSlot }}" src="{{ p.photo }}" shape="rect" placeholder="{{ p.hint }}"></image-slot></div><span style="{{ p.chipStyle }}">{{ p.cat }}</span></div>
@@ -876,7 +1054,7 @@
     </section>
 
     <section style="max-width:1280px;margin:0 auto;padding:56px 24px 0">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));grid-template-rows:300px 220px;gap:18px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));grid-template-rows:300px 220px;gap:18px">
         <div style="grid-row:span 2;border-radius:26px;overflow:hidden"><image-slot id="sh-ab-1" src="https://i.pinimg.com/736x/22/93/a2/2293a2dfbe58a3b0f0ebd6de0396ea65.jpg" shape="rect" placeholder="The Sahapathika team at the Kochi office"></image-slot></div>
         <div style="border-radius:26px;overflow:hidden"><image-slot id="sh-ab-2" src="https://i.pinimg.com/736x/b4/88/63/b48863982d7b8c63a8d633405da62b2b.jpg" shape="rect" placeholder="Backwater houseboat at golden hour"></image-slot></div>
         <div style="border-radius:26px;overflow:hidden;background:#FDE8E4;color:#16211D;padding:30px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(229,72,61,.18)">
@@ -887,7 +1065,7 @@
     </section>
 
     <section style="max-width:1280px;margin:0 auto;padding:76px 24px">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:64px;align-items:start">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:64px;align-items:start">
         <p style="font-family:'Fraunces',serif;font-weight:300;font-size:clamp(22px,2.4vw,30px);line-height:1.45;letter-spacing:-.015em;margin:0;color:#16211D;text-wrap:pretty">Since 2015, Sahapathika Holidays has been centered around bringing our clients the best in regard and quality travel arrangements.</p>
         <div>
           <p style="font-size:16.5px;line-height:1.8;color:#3A4A44;margin:0 0 18px">We are an IATA-approved travel company with offices in <strong>Trivandrum, Cochin, Vasco-Goa, Bangalore, Kolkata &amp; New Delhi</strong>, offering air tickets, hotel bookings, MICE, events, corporate tour packages and more.</p>
@@ -899,7 +1077,7 @@
     <section style="background:#DCEEE7;padding:88px 0">
       <div style="max-width:1280px;margin:0 auto;padding:0 24px">
         <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);letter-spacing:-.02em;margin:0 0 44px">Why choose us</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px">
           <sc-for list="{{ whyUs }}" as="w" hint-placeholder-count="6">
             <div style="background:#FAF6EF;border-radius:20px;padding:30px;animation:rise .6s both">
               <div style="font-family:'Fraunces',serif;font-size:15px;color:#5FA98C;margin-bottom:16px">{{ w.n }}</div>
@@ -912,7 +1090,7 @@
     </section>
 
     <section style="max-width:1280px;margin:0 auto;padding:88px 24px">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:56px;align-items:center">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:56px;align-items:center">
         <div style="border-radius:26px;overflow:hidden;height:400px"><image-slot id="sh-ab-3" src="https://i.pinimg.com/1200x/2e/de/6a/2ede6ae530ca4688f61e8a73046ae302.jpg" shape="rect" placeholder="Guide with travellers on a spice plantation walk"></image-slot></div>
         <div>
           <h2 style="font-family:'Fraunces',serif;font-weight:400;font-size:clamp(30px,3.6vw,46px);line-height:1.1;letter-spacing:-.02em;margin:0 0 20px">Six offices, one <span style="font-style:italic;color:#E5483D">phone number</span></h2>
@@ -932,16 +1110,16 @@
     </section>
 
     <section style="max-width:1280px;margin:0 auto;padding:0 24px 96px">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:52px;align-items:start">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:52px;align-items:start">
         <div style="background:#fff;border-radius:26px;padding:clamp(24px,3vw,40px);box-shadow:0 20px 50px -26px rgba(22,33,29,.28)">
           <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
             <div>
               <div style="font-family:'Fraunces',serif;font-size:27px;letter-spacing:-.01em;margin-bottom:26px">Send an enquiry</div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:16px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;margin-bottom:16px">
                 <label style="display:block"><span style="{{ labelStyle }}">Your name</span><input value="{{ form.name }}" onChange="{{ setName }}" placeholder="Full name" style="{{ inputStyle }}" style-focus="border-color:#E5483D;box-shadow:0 0 0 4px rgba(229,72,61,.14)" /></label>
                 <label style="display:block"><span style="{{ labelStyle }}">Phone</span><input value="{{ form.phone }}" onChange="{{ setPhone }}" placeholder="+91" style="{{ inputStyle }}" style-focus="border-color:#E5483D;box-shadow:0 0 0 4px rgba(229,72,61,.14)" /></label>
               </div>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:16px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;margin-bottom:16px">
                 <label style="display:block"><span style="{{ labelStyle }}">Email</span><input type="email" value="{{ form.email }}" onChange="{{ setEmailF }}" placeholder="you@email.com" style="{{ inputStyle }}" style-focus="border-color:#E5483D;box-shadow:0 0 0 4px rgba(229,72,61,.14)" /></label>
                 <label style="display:block"><span style="{{ labelStyle }}">Travel dates</span><input value="{{ form.dates }}" onChange="{{ setDates }}" placeholder="e.g. 12–18 Nov 2026" style="{{ inputStyle }}" style-focus="border-color:#E5483D;box-shadow:0 0 0 4px rgba(229,72,61,.14)" /></label>
               </div>
@@ -1066,7 +1244,7 @@
       display: grid;
       align-items: start;
       gap: clamp(1.5rem, 3vw, 3.25rem);
-      grid-template-columns: minmax(240px, 1.45fr) repeat(3, minmax(130px, .85fr)) minmax(260px, 1.25fr);
+      grid-template-columns: minmax(min(100%,240px), 1.45fr) repeat(3, minmax(min(100%,130px), .85fr)) minmax(min(100%,260px), 1.25fr);
     }
 
     .brand-lockup {
