@@ -322,9 +322,11 @@
       <div style="position:absolute;inset:0">
         <image-slot id="sh-hero" src="https://i.pinimg.com/736x/4e/e9/81/4ee98167ddd4ef1f59091c688a1306c3.jpg" shape="rect" fit="cover" placeholder="Hero: kettuvallam houseboat on the Alleppey backwaters, golden hour (4K video still)"></image-slot>
       </div>
-      <sc-if value="{{ hasHeroVideo }}" hint-placeholder-val="{{ false }}">
-        <video src="{{ heroVideo }}" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" poster="https://i.pinimg.com/736x/4e/e9/81/4ee98167ddd4ef1f59091c688a1306c3.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
-      </sc-if>
+      <video autoplay muted loop playsinline preload="auto"
+        poster="https://i.pinimg.com/736x/4e/e9/81/4ee98167ddd4ef1f59091c688a1306c3.jpg"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
+        <source src="From%20Klickpin.com-%20Use%20these%2011%20Minimal%20side%20hustle%20ideas%20that%20are%20perfect%20when%20you%20want%20something%20stylish%20modern%20and%20easy%20to%20copy%20for%20busy%20people.mp4" type="video/mp4">
+      </video>
       <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(22,33,29,.86) 0%,rgba(22,33,29,.6) 42%,rgba(22,33,29,.18) 72%);pointer-events:none"></div>
 
       <div style="position:relative;max-width:1280px;margin:0 auto;padding:clamp(64px, 10vw, 120px) 24px clamp(48px, 8vw, 96px);width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:56px;align-items:center;pointer-events:none">
