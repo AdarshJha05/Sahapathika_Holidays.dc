@@ -319,11 +319,12 @@
   <main>
 
     <section style="position:relative;min-height:min(92vh,860px);display:flex;align-items:center;overflow:hidden;background:#16211D">
-      <video autoplay muted loop playsinline preload="auto"
-        poster="https://i.pinimg.com/736x/4e/e9/81/4ee98167ddd4ef1f59091c688a1306c3.jpg"
-        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
-        <source src="From%20Klickpin.com-%20Use%20these%2011%20Minimal%20side%20hustle%20ideas%20that%20are%20perfect%20when%20you%20want%20something%20stylish%20modern%20and%20easy%20to%20copy%20for%20busy%20people.mp4" type="video/mp4">
-      </video>
+      <sc-if value="{{ hasHeroVideo }}" hint-placeholder-val="{{ false }}">
+        <video src="{{ heroVideo }}" autoplay="{{ true }}" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}"
+          poster="https://i.pinimg.com/736x/4e/e9/81/4ee98167ddd4ef1f59091c688a1306c3.jpg"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">
+        </video>
+      </sc-if>
       <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(22,33,29,.86) 0%,rgba(22,33,29,.6) 42%,rgba(22,33,29,.18) 72%);pointer-events:none;z-index:2"></div>
 
       <div style="position:relative;z-index:3;max-width:1280px;margin:0 auto;padding:clamp(64px, 10vw, 120px) 24px clamp(48px, 8vw, 96px);width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:56px;align-items:center;pointer-events:none">
@@ -2037,8 +2038,8 @@ class Component extends DCLogic {
       headerInnerStyle: 'max-width:1280px;margin:0 auto;padding:0 24px;min-height:' + (s.scrolled ? '62px' : '78px') + ';display:flex;align-items:center;gap:24px;flex-wrap:wrap;transition:min-height .32s cubic-bezier(.2,.7,.3,1)',
       logoStyle: 'height:' + (s.scrolled ? '36px' : '46px') + ';width:auto;display:block;filter:brightness(0) invert(1);transition:height .32s cubic-bezier(.2,.7,.3,1)',
       marquee: ['IATA APPROVED', 'AIR TICKETS', 'HOTEL BOOKINGS', 'MICE & EVENTS', 'CORPORATE TRAVEL', 'PAN-INDIA', 'INTERNATIONAL', 'SINCE 2015', 'IATA APPROVED', 'AIR TICKETS', 'HOTEL BOOKINGS', 'MICE & EVENTS', 'CORPORATE TRAVEL', 'PAN-INDIA', 'INTERNATIONAL', 'SINCE 2015'].map(label => ({ label })),
-      heroVideo: this.props.heroVideoUrl || '',
-      hasHeroVideo: !!(this.props.heroVideoUrl || '').trim(),
+      heroVideo: this.props.heroVideoUrl || 'From%20Klickpin.com-%20Use%20these%2011%20Minimal%20side%20hustle%20ideas%20that%20are%20perfect%20when%20you%20want%20something%20stylish%20modern%20and%20easy%20to%20copy%20for%20busy%20people.mp4',
+      hasHeroVideo: true,
       pkgAsideStyle: 'position:sticky;top:' + (s.hdr + 24) + 'px;flex:1 1 240px;max-width:302px;background:#fff;border:1px solid rgba(22,33,29,.08);border-radius:22px;padding:26px',
       detailAsideStyle: 'position:sticky;top:' + (s.hdr + 24) + 'px;flex:1 1 330px;max-width:376px;display:grid;gap:16px',
 
