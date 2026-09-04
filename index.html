@@ -2295,5 +2295,42 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script>
+  // Force muted + loop on all videos — React/template engines sometimes
+  // don't forward boolean DOM properties like muted to the real DOM node.
+  function fixVideos() {
+    document.querySelectorAll('video').forEach(function(v) {
+      v.muted = true;
+      v.loop = true;
+      v.playsInline = true;
+      if (v.paused) v.play().catch(function(){});
+    });
+  }
+  // Run immediately for videos already in the DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixVideos);
+  } else {
+    fixVideos();
+  }
+  // Also observe for dynamically injected videos (React renders async)
+  var _mo = new MutationObserver(function(mutations) {
+    mutations.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType === 1) {
+          if (n.tagName === 'VIDEO') {
+            n.muted = true; n.loop = true; n.playsInline = true;
+            if (n.paused) n.play().catch(function(){});
+          }
+          n.querySelectorAll && n.querySelectorAll('video').forEach(function(v) {
+            v.muted = true; v.loop = true; v.playsInline = true;
+            if (v.paused) v.play().catch(function(){});
+          });
+        }
+      });
+    });
+  });
+  _mo.observe(document.body, { childList: true, subtree: true });
+</script>
 </body>
+
 </html>
