@@ -38,6 +38,168 @@
   ::selection { background: #FDE8E4; }
   @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
+  /* ═══════════════════════════════════════════════════════════
+     MOTION SYSTEM — Sahapathika Holidays
+     All sh-* classes are applied by motion.js
+  ═══════════════════════════════════════════════════════════ */
+
+  /* ── Keyframes ─────────────────────────────────────────── */
+  @keyframes sh-fade-up   { from { opacity:0; transform:translate3d(0,28px,0); } to { opacity:1; transform:translate3d(0,0,0); } }
+  @keyframes sh-fade-in   { from { opacity:0; } to { opacity:1; } }
+  @keyframes sh-pop-in    { 0%{ opacity:0; transform:scale(.6); } 60%{ transform:scale(1.08); } 100%{ opacity:1; transform:scale(1); } }
+  @keyframes sh-bob       { 0%,100%{ transform:translateY(0) rotate(-1deg); } 50%{ transform:translateY(-10px) rotate(1deg); } }
+  @keyframes sh-bob-slow  { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-6px); } }
+  @keyframes sh-shadow-pulse { 0%,100%{ box-shadow:0 0 0 0 rgba(229,72,61,.45); } 60%{ box-shadow:0 0 0 10px rgba(229,72,61,0); } }
+  @keyframes sh-slide-down { from{ opacity:0; transform:translateY(-10px); } to{ opacity:1; transform:translateY(0); } }
+  @keyframes sh-draw      { from{ stroke-dashoffset:1400; } to{ stroke-dashoffset:0; } }
+  @keyframes sh-scale-in  { from{ opacity:0; transform:scale(.94); } to{ opacity:1; transform:scale(1); } }
+
+  /* ── Scroll-reveal sections ────────────────────────────── */
+  .sh-section {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+    transition: opacity .72s cubic-bezier(.22,1,.36,1), transform .72s cubic-bezier(.22,1,.36,1);
+  }
+  .sh-section.sh-visible {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  /* Stagger children inside revealed sections */
+  .sh-section.sh-visible .sh-child {
+    animation: sh-fade-up .6s cubic-bezier(.22,1,.36,1) both;
+    animation-delay: calc(var(--si, 0) * 0.07s + 0.1s);
+  }
+
+  /* ── Card hover: lift + shadow grow ────────────────────── */
+  .sh-card {
+    transition: transform .32s cubic-bezier(.22,1,.36,1), box-shadow .32s cubic-bezier(.22,1,.36,1) !important;
+    cursor: pointer;
+  }
+  .sh-card:hover {
+    transform: translateY(-7px) scale(1.015) !important;
+    box-shadow: 0 22px 48px -18px rgba(22,33,29,.32), 0 6px 16px -8px rgba(22,33,29,.18) !important;
+  }
+  /* Image zoom inside card — contained, no overflow */
+  .sh-card-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transition: transform .55s cubic-bezier(.22,1,.36,1) !important;
+    overflow: hidden;
+  }
+  .sh-card:hover .sh-card-img {
+    transform: scale(1.07) !important;
+  }
+  /* Category/rating badge pop-in on card appear */
+  .sh-badge {
+    animation: sh-pop-in .45s cubic-bezier(.22,1,.36,1) .22s both;
+  }
+
+  /* ── Staggered grid entrance ───────────────────────────── */
+  .sh-card, .sh-testi {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition: opacity .55s cubic-bezier(.22,1,.36,1), transform .55s cubic-bezier(.22,1,.36,1);
+  }
+  .sh-card.sh-grid-visible, .sh-testi.sh-grid-visible {
+    opacity: 1;
+    transform: translate3d(0,0,0);
+    transition-delay: calc(var(--ci, 0) * 0.08s);
+  }
+
+  /* ── Testimonial card hover ────────────────────────────── */
+  .sh-testi {
+    transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease, opacity .55s cubic-bezier(.22,1,.36,1) !important;
+  }
+  .sh-testi:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 18px 42px -16px rgba(22,33,29,.28) !important;
+  }
+
+  /* ── Trust badge / floating elements idle bob ──────────── */
+  .sh-float {
+    animation: sh-bob 3.8s ease-in-out infinite !important;
+    transform-origin: center center;
+  }
+  .sh-float-slow {
+    animation: sh-bob-slow 5s ease-in-out infinite !important;
+  }
+
+  /* ── Mega-menu slide down ──────────────────────────────── */
+  .sh-dropdown {
+    animation: sh-slide-down .22s cubic-bezier(.22,1,.36,1) both !important;
+    transform-origin: top center;
+  }
+
+  /* ── Marquee pause on hover ────────────────────────────── */
+  .sh-marquee-wrap:hover .sh-marquee {
+    animation-play-state: paused !important;
+  }
+
+  /* ── Button micro-interactions ─────────────────────────── */
+  .sh-btn {
+    transition: transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease, background .2s ease !important;
+  }
+  .sh-btn:hover {
+    transform: scale(1.05) translateY(-1px) !important;
+    box-shadow: 0 12px 28px -10px rgba(229,72,61,.6) !important;
+  }
+  .sh-btn:active {
+    transform: scale(.97) !important;
+    transition-duration: .08s !important;
+  }
+  .sh-btn-dark {
+    transition: transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease !important;
+  }
+  .sh-btn-dark:hover {
+    transform: scale(1.04) !important;
+    box-shadow: 0 10px 22px -8px rgba(22,33,29,.5) !important;
+  }
+
+  /* ── Input focus glow ──────────────────────────────────── */
+  .sh-focused {
+    box-shadow: 0 0 0 3px rgba(229,72,61,.22), 0 0 0 1px rgba(229,72,61,.55) !important;
+    border-color: #E5483D !important;
+    transition: box-shadow .2s ease, border-color .2s ease !important;
+    outline: none !important;
+  }
+
+  /* ── Accordion smooth transitions ─────────────────────── */
+  .sh-accordion {
+    transition: max-height .42s cubic-bezier(.2,.7,.3,1), opacity .35s ease !important;
+    overflow: hidden !important;
+  }
+
+  /* ── Preloader enhancement ─────────────────────────────── */
+  @keyframes sh-bar-loop {
+    0%   { transform: scaleX(0) translateX(0); }
+    40%  { transform: scaleX(.6) translateX(30%); }
+    100% { transform: scaleX(0) translateX(200%); }
+  }
+  @keyframes sh-logo-appear {
+    from { opacity:0; transform: scale(.8) translateY(12px); filter:blur(8px); }
+    to   { opacity:1; transform: scale(1) translateY(0); filter:blur(0); }
+  }
+
+  /* ── Sketch SVG draw-in (triggered by .sh-visible on parent) */
+  .sh-section.sh-visible svg path,
+  .sh-section.sh-visible svg ellipse {
+    animation: sh-draw 1.4s cubic-bezier(.4,0,.2,1) both;
+    stroke-dasharray: 1400;
+  }
+
+  /* ── CTA section scale-in ──────────────────────────────── */
+  .sh-section.sh-visible [style*="background:#DCEEE7"][style*="border-radius:32px"] {
+    animation: sh-scale-in .65s cubic-bezier(.22,1,.36,1) .1s both;
+  }
+
+  /* ── WhatsApp button idle pulse (already has pulsering, enhance) */
+  a[href*="wa.me"] svg {
+    animation: sh-bob-slow 2.8s ease-in-out 2s infinite;
+  }
+
+
+
   /* =====================================================
      GLOBAL RESPONSIVE OVERRIDES – all breakpoints
      ===================================================== */
@@ -2356,6 +2518,7 @@ class Component extends DCLogic {
   });
   _mo.observe(document.body, { childList: true, subtree: true });
 </script>
+<script src="./motion.js" defer></script>
 </body>
 
 </html>
