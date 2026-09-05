@@ -176,3 +176,95 @@ if (document.readyState === "loading") {
 } else {
   boot();
 }
+
+/* ─── HAMBURGER MENU ─────────────────────────────────────────────────────── */
+function initHamburger() {
+  var ham     = document.getElementById("sh-hamburger");
+  var nav     = document.getElementById("sh-mobile-nav");
+  var close   = document.getElementById("sh-mobile-close");
+  var back    = document.getElementById("sh-mobile-backdrop");
+  if (!ham || !nav) return;
+
+  function openMenu() {
+    nav.classList.add("sh-open");
+    ham.setAttribute("aria-expanded", "true");
+    nav.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMenu() {
+    nav.classList.remove("sh-open");
+    ham.setAttribute("aria-expanded", "false");
+    nav.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    // Close all open subs
+    document.querySelectorAll(".sh-mob-sub.sh-sub-open").forEach(function(s) { s.classList.remove("sh-sub-open"); });
+    document.querySelectorAll(".sh-mob-link.sh-sub-open").forEach(function(b) { b.classList.remove("sh-sub-open"); });
+  }
+
+  ham.addEventListener("click", function() {
+    nav.classList.contains("sh-open") ? closeMenu() : openMenu();
+  });
+  if (close) close.addEventListener("click", closeMenu);
+  if (back)  back.addEventListener("click", closeMenu);
+
+  // Sub-menu toggles
+  document.querySelectorAll(".sh-mob-has-sub").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var subId = "sh-sub-" + btn.dataset.sub;
+      var sub   = document.getElementById(subId);
+      if (!sub) return;
+      var isOpen = sub.classList.contains("sh-sub-open");
+      // Close all
+      document.querySelectorAll(".sh-mob-sub.sh-sub-open").forEach(function(s) { s.classList.remove("sh-sub-open"); });
+      document.querySelectorAll(".sh-mob-link.sh-sub-open").forEach(function(b) { b.classList.remove("sh-sub-open"); });
+      if (!isOpen) { sub.classList.add("sh-sub-open"); btn.classList.add("sh-sub-open"); }
+    });
+  });
+
+  // Nav link page navigation — hook into the React component's go() function
+  function goPage(page, extra) {
+    closeMenu();
+    // The component exposes navigation via click events on its own buttons
+    // Find matching button and click it
+    var map = {
+      "home":     "[onClick*=\"goHome\"]",
+      "packages": "[onClick*=\"goPackages\"]",
+      "about":    "[onClick*=\"goAbout\"]",
+      "contact":  "[onClick*=\"goContact\"]"
+    };
+    var sel = map[page];
+    if (sel) {
+      var btn = document.querySelector(sel);
+      if (btn) { setTimeout(function() { btn.click(); }, 80); }
+    }
+  }
+
+  document.querySelectorAll(".sh-mob-link[data-page]").forEach(function(btn) {
+    btn.addEventListener("click", function() { goPage(btn.dataset.page); });
+  });
+  document.querySelectorAll(".sh-mob-sub-link[data-page]").forEach(function(btn) {
+    btn.addEventListener("click", function() { goPage(btn.dataset.page); });
+  });
+  document.querySelectorAll(".sh-mob-plan").forEach(function(btn) {
+    btn.addEventListener("click", function() { goPage(btn.dataset.page || "contact"); });
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && nav.classList.contains("sh-open")) closeMenu();
+  });
+
+  // Re-close menu on page resize back to desktop
+  window.addEventListener("resize", function() {
+    if (window.innerWidth > 900) closeMenu();
+  });
+}
+
+// Append to boot
+var _origBoot = boot;
+if (typeof boot !== "undefined") {
+  document.addEventListener("DOMContentLoaded", initHamburger);
+}
+if (document.readyState !== "loading") {
+  initHamburger();
+}

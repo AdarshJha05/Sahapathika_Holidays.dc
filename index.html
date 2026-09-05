@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -156,7 +156,148 @@
     box-shadow: 0 10px 22px -8px rgba(22,33,29,.5) !important;
   }
 
-  /* â”€â”€ Input focus glow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  /* —————————————————————————————————————————————————————————— */
+  a[href*="wa.me"] svg {
+    animation: sh-bob-slow 2.8s ease-in-out 2s infinite;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     HAMBURGER MENU — ≤ 900px
+  ═══════════════════════════════════════════════════════════ */
+
+  /* Show hamburger, hide desktop nav + tel + plan at ≤900px */
+  @media (max-width: 900px) {
+    header nav[aria-label="Primary"] { display: none !important; }
+    .sh-tel-link  { display: none !important; }
+    .sh-plan-btn  { display: none !important; }
+    #sh-hamburger { display: flex !important; }
+  }
+
+  /* Hamburger icon — bar animations */
+  .sh-bar { transition: transform .3s ease, opacity .3s ease; transform-origin: center; }
+  #sh-hamburger[aria-expanded="true"] .sh-bar-1 { transform: rotate(45deg)  translate(0, 5px); }
+  #sh-hamburger[aria-expanded="true"] .sh-bar-2 { opacity: 0; transform: scaleX(0); }
+  #sh-hamburger[aria-expanded="true"] .sh-bar-3 { transform: rotate(-45deg) translate(0, -5px); }
+
+  /* Backdrop */
+  #sh-mobile-backdrop {
+    position: fixed; inset: 0; z-index: 79;
+    background: rgba(15, 22, 19, .55);
+    backdrop-filter: blur(3px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s ease;
+  }
+
+  /* Panel */
+  #sh-mobile-panel {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    z-index: 80;
+    width: min(88vw, 340px);
+    background: #16211D;
+    color: #FAF6EF;
+    display: flex; flex-direction: column;
+    padding: 0;
+    transform: translateX(100%);
+    transition: transform .38s cubic-bezier(.22,1,.36,1);
+    overflow-y: auto; overflow-x: hidden;
+    box-shadow: -12px 0 48px rgba(0,0,0,.45);
+  }
+
+  /* Open state */
+  #sh-mobile-nav.sh-open #sh-mobile-backdrop { opacity: 1; pointer-events: auto; }
+  #sh-mobile-nav.sh-open #sh-mobile-panel    { transform: translateX(0); }
+
+  /* Close button */
+  #sh-mobile-close {
+    display: flex; align-items: center; justify-content: center;
+    position: absolute; top: 14px; right: 14px;
+    width: 38px; height: 38px; border-radius: 8px;
+    background: rgba(251,247,238,.08); border: 1px solid rgba(251,247,238,.16);
+    color: #FAF6EF; cursor: pointer;
+    transition: background .2s;
+  }
+  #sh-mobile-close:hover { background: rgba(251,247,238,.16); }
+
+  /* Logo strip */
+  .sh-mob-logo {
+    padding: 22px 24px 20px;
+    border-bottom: 1px solid rgba(251,247,238,.1);
+    margin-bottom: 8px;
+  }
+
+  /* Nav list */
+  .sh-mob-links {
+    list-style: none; margin: 0; padding: 8px 0;
+    flex: 1;
+  }
+  .sh-mob-links li { border-bottom: 1px solid rgba(251,247,238,.07); }
+
+  .sh-mob-link {
+    width: 100%; text-align: left;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 24px;
+    background: none; border: 0;
+    color: #FAF6EF; font-size: 15.5px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+    transition: background .18s, color .18s;
+  }
+  .sh-mob-link:hover, .sh-mob-link:focus-visible {
+    background: rgba(251,247,238,.07); color: #FF8B80;
+  }
+  .sh-mob-link.sh-mob-active { color: #FF8B80; }
+
+  /* Chevron rotation */
+  .sh-mob-chevron { transition: transform .28s ease; flex-shrink: 0; }
+  .sh-mob-link.sh-sub-open .sh-mob-chevron { transform: rotate(180deg); }
+
+  /* Sub-menu accordion */
+  .sh-mob-sub {
+    list-style: none; margin: 0;
+    padding: 0 0 4px 0;
+    max-height: 0; overflow: hidden;
+    transition: max-height .34s cubic-bezier(.2,.7,.3,1);
+    background: rgba(0,0,0,.18);
+  }
+  .sh-mob-sub.sh-sub-open { max-height: 320px; }
+  .sh-mob-sub-link {
+    width: 100%; text-align: left;
+    display: block; padding: 11px 24px 11px 36px;
+    background: none; border: 0;
+    color: rgba(251,247,238,.72); font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: inherit;
+    transition: color .18s, background .18s;
+  }
+  .sh-mob-sub-link:hover { color: #FF8B80; background: rgba(251,247,238,.05); }
+
+  /* CTA strip at bottom */
+  .sh-mob-cta {
+    padding: 20px 24px 32px;
+    border-top: 1px solid rgba(251,247,238,.1);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .sh-mob-tel {
+    display: flex; align-items: center; gap: 9px;
+    color: #FAF6EF; font-size: 14.5px; font-weight: 600;
+    text-decoration: none; opacity: .85;
+    transition: opacity .2s;
+  }
+  .sh-mob-tel:hover { opacity: 1; }
+  .sh-mob-plan {
+    width: 100%; padding: 14px 20px;
+    background: #E5483D; color: #fff;
+    border: 0; border-radius: 999px;
+    font-size: 15px; font-weight: 700; font-family: inherit;
+    cursor: pointer; letter-spacing: .01em;
+    transition: background .2s, transform .2s;
+  }
+  .sh-mob-plan:hover { background: #C4362C; transform: scale(1.02); }
+
+  /* Hide drawer completely on desktop */
+  @media (min-width: 901px) {
+    #sh-mobile-nav, #sh-mobile-backdrop, #sh-mobile-panel { display: none !important; }
+  }
+
+  /* —————————————————————————————————————————————————————————— */
   .sh-focused {
     box-shadow: 0 0 0 3px rgba(229,72,61,.22), 0 0 0 1px rgba(229,72,61,.55) !important;
     border-color: #E5483D !important;
@@ -415,13 +556,82 @@
       </nav>
 
       <div style="margin-left:auto;display:flex;align-items:center;gap:14px">
-        <a href="tel:+919072769547" style="color:#FAF6EF;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;opacity:.9">
+        <a href="tel:+919072769547" style="color:#FAF6EF;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;opacity:.9" class="sh-tel-link">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1.1 1A16 16 0 0 1 4 5.1 1 1 0 0 1 5 4Z" stroke="#FF8B80" strokeWidth="1.5" strokeLinejoin="round"/></svg>
           +91 90727 69547
         </a>
-        <button style="background:#E5483D;color:#fff;border:0;padding:13px 22px;border-radius:999px;font-size:13.5px;font-weight:700;cursor:pointer;letter-spacing:.01em;transition:transform .2s,box-shadow .25s,background .2s" style-hover="background:#C4362C;transform:scale(1.05);box-shadow:0 12px 26px -12px rgba(229,72,61,.8)" onClick="{{ goContact }}">Plan My Trip</button>
+        <button style="background:#E5483D;color:#fff;border:0;padding:13px 22px;border-radius:999px;font-size:13.5px;font-weight:700;cursor:pointer;letter-spacing:.01em;transition:transform .2s,box-shadow .25s,background .2s" style-hover="background:#C4362C;transform:scale(1.05);box-shadow:0 12px 26px -12px rgba(229,72,61,.8)" onClick="{{ goContact }}" class="sh-plan-btn">Plan My Trip</button>
+
+        <!-- Hamburger — visible only on ≤900px -->
+        <button id="sh-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="sh-mobile-nav"
+          style="display:none;align-items:center;justify-content:center;width:44px;height:44px;background:rgba(251,247,238,.08);border:1.5px solid rgba(251,247,238,.2);border-radius:10px;cursor:pointer;flex-shrink:0;transition:background .2s">
+          <svg id="sh-ham-icon" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#FAF6EF" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6"  x2="19" y2="6"  class="sh-bar sh-bar-1"/>
+            <line x1="3" y1="11" x2="19" y2="11" class="sh-bar sh-bar-2"/>
+            <line x1="3" y1="16" x2="19" y2="16" class="sh-bar sh-bar-3"/>
+          </svg>
+        </button>
       </div>
-    </div>
+    </div><!-- /headerInnerStyle -->
+
+    <!-- Mobile nav drawer -->
+    <nav id="sh-mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
+      <div id="sh-mobile-backdrop"></div>
+      <div id="sh-mobile-panel">
+        <!-- Close -->
+        <button id="sh-mobile-close" aria-label="Close menu">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <line x1="3" y1="3" x2="17" y2="17"/><line x1="17" y1="3" x2="3" y2="17"/>
+          </svg>
+        </button>
+
+        <!-- Logo in drawer -->
+        <div class="sh-mob-logo">
+          <img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:38px;width:auto;filter:brightness(0) invert(1)"/>
+        </div>
+
+        <!-- Nav links -->
+        <ul class="sh-mob-links">
+          <li><button class="sh-mob-link" data-page="home">Home</button></li>
+          <li>
+            <button class="sh-mob-link sh-mob-has-sub" data-sub="destinations">
+              Destinations <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="sh-mob-chevron"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <ul class="sh-mob-sub" id="sh-sub-destinations">
+              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Kerala">Kerala</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Goa">Goa</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Rajasthan">Rajasthan</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Himachal Pradesh">Himachal Pradesh</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages">View All Destinations</button></li>
+            </ul>
+          </li>
+          <li>
+            <button class="sh-mob-link sh-mob-has-sub" data-sub="packages">
+              Packages <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="sh-mob-chevron"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <ul class="sh-mob-sub" id="sh-sub-packages">
+              <li><button class="sh-mob-sub-link" data-page="packages">All Packages</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages">Beach &amp; Backwaters</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages">Hill Stations</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages">Wildlife</button></li>
+              <li><button class="sh-mob-sub-link" data-page="packages">Cultural &amp; Heritage</button></li>
+            </ul>
+          </li>
+          <li><button class="sh-mob-link" data-page="about">About</button></li>
+          <li><button class="sh-mob-link" data-page="contact">Contact</button></li>
+        </ul>
+
+        <!-- CTA area -->
+        <div class="sh-mob-cta">
+          <a href="tel:+919072769547" class="sh-mob-tel">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1.1 1A16 16 0 0 1 4 5.1 1 1 0 0 1 5 4Z" stroke="#FF8B80" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            +91 90727 69547
+          </a>
+          <button class="sh-mob-plan" data-page="contact">Plan My Trip →</button>
+        </div>
+      </div>
+    </nav>
+
 
     <sc-if value="{{ menuDest }}" hint-placeholder-val="{{ false }}">
       <div style="position:absolute;left:0;right:0;top:100%;background:#FAF6EF;color:#1B1A17;border-top:1px solid rgba(255,255,255,.08);box-shadow:0 26px 50px -24px rgba(22,33,29,.42);animation:fadein .18s both">
