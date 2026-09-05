@@ -2261,14 +2261,18 @@ class Component extends DCLogic {
   }
 
   go = (page, extra) => {
-    if (this.state.wiping) return;
-    this.setState({ wiping: true, menu: null, field: null });
-    clearTimeout(this._t1); clearTimeout(this._t2);
+    if (this.state.loading) return;
+    this.setState({ loading: true, menu: null, field: null });
+    clearTimeout(this._pre);
+    
     this._t1 = setTimeout(() => {
       this.setState(Object.assign({ page }, extra || {}));
       window.scrollTo({ top: 0, behavior: 'auto' });
-      this._t2 = setTimeout(() => this.setState({ wiping: false }), 90);
-    }, 260);
+    }, 200);
+
+    this._pre = setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1750);
   };
   filterTo = (cat, region) => this.go('packages', { fCat: cat || 'All', fRegion: region || 'All' });
 
