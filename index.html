@@ -574,63 +574,6 @@
       </div>
     </div><!-- /headerInnerStyle -->
 
-    <!-- Mobile nav drawer -->
-    <nav id="sh-mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
-      <div id="sh-mobile-backdrop"></div>
-      <div id="sh-mobile-panel">
-        <!-- Close -->
-        <button id="sh-mobile-close" aria-label="Close menu">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-            <line x1="3" y1="3" x2="17" y2="17"/><line x1="17" y1="3" x2="3" y2="17"/>
-          </svg>
-        </button>
-
-        <!-- Logo in drawer -->
-        <div class="sh-mob-logo">
-          <img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:38px;width:auto;filter:brightness(0) invert(1)"/>
-        </div>
-
-        <!-- Nav links -->
-        <ul class="sh-mob-links">
-          <li><button class="sh-mob-link" data-page="home">Home</button></li>
-          <li>
-            <button class="sh-mob-link sh-mob-has-sub" data-sub="destinations">
-              Destinations <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="sh-mob-chevron"><path d="M2 4l4 4 4-4"/></svg>
-            </button>
-            <ul class="sh-mob-sub" id="sh-sub-destinations">
-              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Kerala">Kerala</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Goa">Goa</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Rajasthan">Rajasthan</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages" data-filter-region="Himachal Pradesh">Himachal Pradesh</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages">View All Destinations</button></li>
-            </ul>
-          </li>
-          <li>
-            <button class="sh-mob-link sh-mob-has-sub" data-sub="packages">
-              Packages <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="sh-mob-chevron"><path d="M2 4l4 4 4-4"/></svg>
-            </button>
-            <ul class="sh-mob-sub" id="sh-sub-packages">
-              <li><button class="sh-mob-sub-link" data-page="packages">All Packages</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages">Beach &amp; Backwaters</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages">Hill Stations</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages">Wildlife</button></li>
-              <li><button class="sh-mob-sub-link" data-page="packages">Cultural &amp; Heritage</button></li>
-            </ul>
-          </li>
-          <li><button class="sh-mob-link" data-page="about">About</button></li>
-          <li><button class="sh-mob-link" data-page="contact">Contact</button></li>
-        </ul>
-
-        <!-- CTA area -->
-        <div class="sh-mob-cta">
-          <a href="tel:+919072769547" class="sh-mob-tel">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1.1 1A16 16 0 0 1 4 5.1 1 1 0 0 1 5 4Z" stroke="#FF8B80" stroke-width="1.6" stroke-linejoin="round"/></svg>
-            +91 90727 69547
-          </a>
-          <button class="sh-mob-plan" data-page="contact">Plan My Trip →</button>
-        </div>
-      </div>
-    </nav>
 
 
     <sc-if value="{{ menuDest }}" hint-placeholder-val="{{ false }}">

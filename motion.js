@@ -1,6 +1,6 @@
 ﻿/**
  * motion.js — Sahapathika Holidays
- * Vanilla JS animation engine. No frameworks. No dependencies.
+ * Vanilla JS animation + hamburger engine. No frameworks.
  */
 "use strict";
 
@@ -148,16 +148,171 @@ function initInputGlow() {
 function initAccordions() {
   var mo = new MutationObserver(function(mutations) {
     mutations.forEach(function(m) {
-      if (m.type === "attributes" && m.target.style) {
+      if (m.type === "attributes" && m.target && m.target.style) {
         var mh = m.target.style.maxHeight;
-        if (mh !== undefined) m.target.classList.add("sh-accordion");
+        if (mh !== undefined && mh !== "") m.target.classList.add("sh-accordion");
       }
     });
   });
   mo.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["style"] });
 }
 
-/* BOOT */
+/* ═══════════════════════════════════════════════════════════
+   11. HAMBURGER MENU — injected outside x-dc, event-delegated
+   ═══════════════════════════════════════════════════════════ */
+function initHamburger() {
+  /* ── Inject drawer into body (outside React) ── */
+  if (!document.getElementById("sh-mobile-nav")) {
+    var drawerHTML = '<nav id="sh-mobile-nav" aria-label="Mobile navigation" aria-hidden="true">' +
+      '<div id="sh-mobile-backdrop"></div>' +
+      '<div id="sh-mobile-panel">' +
+        '<button id="sh-mobile-close" aria-label="Close menu">' +
+          '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">' +
+            '<line x1="3" y1="3" x2="17" y2="17"/><line x1="17" y1="3" x2="3" y2="17"/>' +
+          '</svg>' +
+        '</button>' +
+        '<div class="sh-mob-logo">' +
+          '<img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:38px;width:auto;filter:brightness(0) invert(1)"/>' +
+        '</div>' +
+        '<ul class="sh-mob-links">' +
+          '<li><button class="sh-mob-link" data-page="home">Home</button></li>' +
+          '<li>' +
+            '<button class="sh-mob-link sh-mob-has-sub" data-sub="destinations">Destinations ' +
+              '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="sh-mob-chevron"><path d="M2 4l4 4 4-4"/></svg>' +
+            '</button>' +
+            '<ul class="sh-mob-sub" id="sh-sub-destinations">' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Kerala</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Goa</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Rajasthan</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Himachal Pradesh</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">View All</button></li>' +
+            '</ul>' +
+          '</li>' +
+          '<li>' +
+            '<button class="sh-mob-link sh-mob-has-sub" data-sub="packages">Packages ' +
+              '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="sh-mob-chevron"><path d="M2 4l4 4 4-4"/></svg>' +
+            '</button>' +
+            '<ul class="sh-mob-sub" id="sh-sub-packages">' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">All Packages</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Beach &amp; Backwaters</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Hill Stations</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Wildlife</button></li>' +
+              '<li><button class="sh-mob-sub-link" data-page="packages">Cultural &amp; Heritage</button></li>' +
+            '</ul>' +
+          '</li>' +
+          '<li><button class="sh-mob-link" data-page="about">About</button></li>' +
+          '<li><button class="sh-mob-link" data-page="contact">Contact</button></li>' +
+        '</ul>' +
+        '<div class="sh-mob-cta">' +
+          '<a href="tel:+919072769547" class="sh-mob-tel">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 4h4l2 5-2.5 1.5a12 12 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1.1 1A16 16 0 0 1 4 5.1 1 1 0 0 1 5 4Z" stroke="#FF8B80" stroke-width="1.6" stroke-linejoin="round"/></svg>' +
+            '+91 90727 69547' +
+          '</a>' +
+          '<button class="sh-mob-plan" data-page="contact">Plan My Trip \u2192</button>' +
+        '</div>' +
+      '</div>' +
+    '</nav>';
+    var div = document.createElement("div");
+    div.innerHTML = drawerHTML;
+    document.body.appendChild(div.firstChild);
+  }
+
+  /* ── Open / Close helpers ── */
+  function nav()  { return document.getElementById("sh-mobile-nav"); }
+  function ham()  { return document.getElementById("sh-hamburger"); }
+
+  function openMenu() {
+    var n = nav(), h = ham(); if (!n) return;
+    n.classList.add("sh-open");
+    n.setAttribute("aria-hidden", "false");
+    if (h) h.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+  }
+  function closeMenu() {
+    var n = nav(), h = ham(); if (!n) return;
+    n.classList.remove("sh-open");
+    n.setAttribute("aria-hidden", "true");
+    if (h) h.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+    document.querySelectorAll(".sh-mob-sub.sh-sub-open").forEach(function(s) { s.classList.remove("sh-sub-open"); });
+    document.querySelectorAll(".sh-mob-has-sub.sh-sub-open").forEach(function(b) { b.classList.remove("sh-sub-open"); });
+  }
+
+  /* ── Navigate to page via React component buttons ── */
+  function goPage(page) {
+    closeMenu();
+    var map = {
+      "home":     "button[onClick*=\"goHome\"], button[onclick*=\"goHome\"]",
+      "packages": "button[onClick*=\"goPackages\"], button[onclick*=\"goPackages\"]",
+      "about":    "button[onClick*=\"goAbout\"], button[onclick*=\"goAbout\"]",
+      "contact":  "button[onClick*=\"goContact\"], button[onclick*=\"goContact\"]"
+    };
+    var sel = map[page];
+    if (sel) {
+      setTimeout(function() {
+        var btn = document.querySelector(sel);
+        if (btn) btn.click();
+      }, 120);
+    }
+  }
+
+  /* ── EVENT DELEGATION on document — survives React re-renders ── */
+  document.addEventListener("click", function(e) {
+    var t = e.target;
+
+    /* Hamburger button or its children */
+    var hamBtn = t.closest ? t.closest("#sh-hamburger") : (t.id === "sh-hamburger" ? t : null);
+    if (hamBtn) {
+      var n = nav();
+      n && n.classList.contains("sh-open") ? closeMenu() : openMenu();
+      return;
+    }
+
+    /* Backdrop click */
+    if (t.id === "sh-mobile-backdrop") { closeMenu(); return; }
+
+    /* Close button */
+    var closeBtn = t.closest ? t.closest("#sh-mobile-close") : null;
+    if (closeBtn) { closeMenu(); return; }
+
+    /* Sub-menu toggle */
+    var subBtn = t.closest ? t.closest(".sh-mob-has-sub") : null;
+    if (subBtn) {
+      var subId = "sh-sub-" + subBtn.dataset.sub;
+      var sub = document.getElementById(subId);
+      if (!sub) return;
+      var isOpen = sub.classList.contains("sh-sub-open");
+      document.querySelectorAll(".sh-mob-sub.sh-sub-open").forEach(function(s) { s.classList.remove("sh-sub-open"); });
+      document.querySelectorAll(".sh-mob-has-sub.sh-sub-open").forEach(function(b) { b.classList.remove("sh-sub-open"); });
+      if (!isOpen) { sub.classList.add("sh-sub-open"); subBtn.classList.add("sh-sub-open"); }
+      return;
+    }
+
+    /* Nav link */
+    var navLink = t.closest ? t.closest(".sh-mob-link[data-page]") : null;
+    if (navLink && navLink.dataset.page) { goPage(navLink.dataset.page); return; }
+
+    /* Sub link */
+    var subLink = t.closest ? t.closest(".sh-mob-sub-link[data-page]") : null;
+    if (subLink && subLink.dataset.page) { goPage(subLink.dataset.page); return; }
+
+    /* Plan my trip button */
+    var planBtn = t.closest ? t.closest(".sh-mob-plan") : null;
+    if (planBtn) { goPage(planBtn.dataset.page || "contact"); return; }
+  });
+
+  /* Escape key */
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") { var n = nav(); if (n && n.classList.contains("sh-open")) closeMenu(); }
+  });
+
+  /* Close on resize to desktop */
+  window.addEventListener("resize", function() {
+    if (window.innerWidth > 900) closeMenu();
+  });
+}
+
+/* ── BOOT ── */
 function boot() {
   initScrollReveals();
   initCardHovers();
@@ -169,102 +324,11 @@ function boot() {
   initButtonEffects();
   initInputGlow();
   initAccordions();
+  initHamburger();
 }
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", boot);
 } else {
   boot();
-}
-
-/* ─── HAMBURGER MENU ─────────────────────────────────────────────────────── */
-function initHamburger() {
-  var ham     = document.getElementById("sh-hamburger");
-  var nav     = document.getElementById("sh-mobile-nav");
-  var close   = document.getElementById("sh-mobile-close");
-  var back    = document.getElementById("sh-mobile-backdrop");
-  if (!ham || !nav) return;
-
-  function openMenu() {
-    nav.classList.add("sh-open");
-    ham.setAttribute("aria-expanded", "true");
-    nav.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
-  function closeMenu() {
-    nav.classList.remove("sh-open");
-    ham.setAttribute("aria-expanded", "false");
-    nav.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-    // Close all open subs
-    document.querySelectorAll(".sh-mob-sub.sh-sub-open").forEach(function(s) { s.classList.remove("sh-sub-open"); });
-    document.querySelectorAll(".sh-mob-link.sh-sub-open").forEach(function(b) { b.classList.remove("sh-sub-open"); });
-  }
-
-  ham.addEventListener("click", function() {
-    nav.classList.contains("sh-open") ? closeMenu() : openMenu();
-  });
-  if (close) close.addEventListener("click", closeMenu);
-  if (back)  back.addEventListener("click", closeMenu);
-
-  // Sub-menu toggles
-  document.querySelectorAll(".sh-mob-has-sub").forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      var subId = "sh-sub-" + btn.dataset.sub;
-      var sub   = document.getElementById(subId);
-      if (!sub) return;
-      var isOpen = sub.classList.contains("sh-sub-open");
-      // Close all
-      document.querySelectorAll(".sh-mob-sub.sh-sub-open").forEach(function(s) { s.classList.remove("sh-sub-open"); });
-      document.querySelectorAll(".sh-mob-link.sh-sub-open").forEach(function(b) { b.classList.remove("sh-sub-open"); });
-      if (!isOpen) { sub.classList.add("sh-sub-open"); btn.classList.add("sh-sub-open"); }
-    });
-  });
-
-  // Nav link page navigation — hook into the React component's go() function
-  function goPage(page, extra) {
-    closeMenu();
-    // The component exposes navigation via click events on its own buttons
-    // Find matching button and click it
-    var map = {
-      "home":     "[onClick*=\"goHome\"]",
-      "packages": "[onClick*=\"goPackages\"]",
-      "about":    "[onClick*=\"goAbout\"]",
-      "contact":  "[onClick*=\"goContact\"]"
-    };
-    var sel = map[page];
-    if (sel) {
-      var btn = document.querySelector(sel);
-      if (btn) { setTimeout(function() { btn.click(); }, 80); }
-    }
-  }
-
-  document.querySelectorAll(".sh-mob-link[data-page]").forEach(function(btn) {
-    btn.addEventListener("click", function() { goPage(btn.dataset.page); });
-  });
-  document.querySelectorAll(".sh-mob-sub-link[data-page]").forEach(function(btn) {
-    btn.addEventListener("click", function() { goPage(btn.dataset.page); });
-  });
-  document.querySelectorAll(".sh-mob-plan").forEach(function(btn) {
-    btn.addEventListener("click", function() { goPage(btn.dataset.page || "contact"); });
-  });
-
-  // Close on Escape key
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape" && nav.classList.contains("sh-open")) closeMenu();
-  });
-
-  // Re-close menu on page resize back to desktop
-  window.addEventListener("resize", function() {
-    if (window.innerWidth > 900) closeMenu();
-  });
-}
-
-// Append to boot
-var _origBoot = boot;
-if (typeof boot !== "undefined") {
-  document.addEventListener("DOMContentLoaded", initHamburger);
-}
-if (document.readyState !== "loading") {
-  initHamburger();
 }
