@@ -539,7 +539,7 @@
     <div style="position:fixed;inset:0;z-index:95;background:#E5483D;pointer-events:none;animation:fadein .22s both"></div>
   </sc-if>
 
-  <header ref="{{ headerRef }}" style="position:sticky;top:0;z-index:60;background:#16211D;color:#FAF6EF" onMouseLeave="{{ closeMenu }}">
+  <header ref="{{ headerRef }}" style="position:sticky;top:0;z-index:60;background:rgba(22,33,29,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#FAF6EF" onMouseLeave="{{ closeMenu }}">
     <div style="{{ headerInnerStyle }}">
       <div style="display:flex;align-items:center;gap:14px;cursor:pointer;flex:0 0 auto" onClick="{{ goHome }}">
         <img src="Site-logo1.svg" alt="Sahapathika Holidays" style="{{ logoStyle }}" />
