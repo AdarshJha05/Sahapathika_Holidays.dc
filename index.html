@@ -520,16 +520,16 @@
   <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
     <div style="{{ preloaderStyle }}">
       <img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:62px;width:auto;animation:rise .8s both" />
-      <div style="width:210px;height:3px;border-radius:99px;background:rgba(250,246,239,.18);margin-top:34px;overflow:hidden">
+      <div style="width:210px;height:3px;border-radius:99px;background:rgba(22,33,29,.18);margin-top:34px;overflow:hidden">
         <div style="height:100%;background:#E5483D;transform-origin:left;animation:barfill 1.5s cubic-bezier(.4,0,.2,1) both"></div>
       </div>
-      <div style="margin-top:18px;font-size:10.5px;letter-spacing:.3em;font-weight:700;color:rgba(250,246,239,.5);animation:fadein 1s .3s both">PREPARING YOUR JOURNEY</div>
+      <div style="margin-top:18px;font-size:10.5px;letter-spacing:.3em;font-weight:700;color:rgba(22,33,29,.5);animation:fadein 1s .3s both">PREPARING YOUR JOURNEY</div>
     </div>
   </sc-if>
 
   <div style="{{ topBarStyle }}"></div>
   <sc-if value="{{ wiping }}" hint-placeholder-val="{{ false }}">
-    <div style="position:fixed;inset:0;z-index:95;background:#E5483D;pointer-events:none;animation:fadein .22s both"></div>
+    <div style="position:fixed;inset:0;z-index:95;background:#FAF6EF;pointer-events:none;animation:fadein .22s both"></div>
   </sc-if>
 
   <header ref="{{ headerRef }}" style="position:sticky;top:0;z-index:60;background:rgba(251,247,238,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#16211D" onMouseLeave="{{ closeMenu }}">
@@ -2360,7 +2360,7 @@ class Component extends DCLogic {
       footLinkStyle: 'background:none;border:0;padding:0;text-align:left;color:rgba(251,247,238,.68);font-size:14px;cursor:pointer',
       headerRef: el => { this.headerEl = el; if (el && this._measure) requestAnimationFrame(this._measure); },
       loading: s.loading, wiping: s.wiping,
-      preloaderStyle: 'position:fixed;inset:0;z-index:100;background:#16211D;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:wipeout .5s 1.25s both',
+      preloaderStyle: 'position:fixed;inset:0;z-index:100;background:#FAF6EF;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:wipeout .5s 1.25s both',
       topBarStyle: 'position:fixed;top:0;left:0;height:3px;z-index:99;background:#E5483D;transition:width .28s ease,opacity .3s;width:' + (s.wiping ? '100%' : '0') + ';opacity:' + (s.wiping ? '1' : '0'),
       headerInnerStyle: 'max-width:1280px;margin:0 auto;padding:0 24px;min-height:' + (s.scrolled ? '62px' : '78px') + ';display:flex;align-items:center;gap:24px;flex-wrap:wrap;transition:min-height .32s cubic-bezier(.2,.7,.3,1)',
       logoStyle: 'height:' + (s.scrolled ? '36px' : '46px') + ';width:auto;display:block;transition:height .32s cubic-bezier(.2,.7,.3,1)',
