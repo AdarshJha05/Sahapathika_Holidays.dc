@@ -308,7 +308,7 @@ function initHamburger() {
 
   /* Close on resize to desktop */
   window.addEventListener("resize", function() {
-    if (window.innerWidth > 900) closeMenu();
+    if (window.innerWidth > 1224) closeMenu();
   });
 }
 
@@ -332,4 +332,5 @@ if (document.readyState === "loading") {
 } else {
   boot();
 }
+
 
