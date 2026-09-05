@@ -172,7 +172,7 @@ function initHamburger() {
           '</svg>' +
         '</button>' +
         '<div class="sh-mob-logo">' +
-          '<img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:38px;width:auto;filter:brightness(0) invert(1)"/>' +
+          '<img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:38px;width:auto;"/>' +
         '</div>' +
         '<ul class="sh-mob-links">' +
           '<li><button class="sh-mob-link" data-page="home">Home</button></li>' +
@@ -332,3 +332,4 @@ if (document.readyState === "loading") {
 } else {
   boot();
 }
+

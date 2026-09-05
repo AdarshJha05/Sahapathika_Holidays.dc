@@ -526,7 +526,7 @@
 
   <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
     <div style="{{ preloaderStyle }}">
-      <img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:62px;width:auto;filter:brightness(0) invert(1);animation:rise .8s both" />
+      <img src="Site-logo1.svg" alt="Sahapathika Holidays" style="height:62px;width:auto;animation:rise .8s both" />
       <div style="width:210px;height:3px;border-radius:99px;background:rgba(250,246,239,.18);margin-top:34px;overflow:hidden">
         <div style="height:100%;background:#E5483D;transform-origin:left;animation:barfill 1.5s cubic-bezier(.4,0,.2,1) both"></div>
       </div>
@@ -2376,7 +2376,7 @@ class Component extends DCLogic {
       preloaderStyle: 'position:fixed;inset:0;z-index:100;background:#16211D;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:wipeout .5s 1.25s both',
       topBarStyle: 'position:fixed;top:0;left:0;height:3px;z-index:99;background:#E5483D;transition:width .28s ease,opacity .3s;width:' + (s.wiping ? '100%' : '0') + ';opacity:' + (s.wiping ? '1' : '0'),
       headerInnerStyle: 'max-width:1280px;margin:0 auto;padding:0 24px;min-height:' + (s.scrolled ? '62px' : '78px') + ';display:flex;align-items:center;gap:24px;flex-wrap:wrap;transition:min-height .32s cubic-bezier(.2,.7,.3,1)',
-      logoStyle: 'height:' + (s.scrolled ? '36px' : '46px') + ';width:auto;display:block;filter:brightness(0) invert(1);transition:height .32s cubic-bezier(.2,.7,.3,1)',
+      logoStyle: 'height:' + (s.scrolled ? '36px' : '46px') + ';width:auto;display:block;transition:height .32s cubic-bezier(.2,.7,.3,1)',
       marquee: ['IATA APPROVED', 'AIR TICKETS', 'HOTEL BOOKINGS', 'MICE & EVENTS', 'CORPORATE TRAVEL', 'PAN-INDIA', 'INTERNATIONAL', 'SINCE 2015', 'IATA APPROVED', 'AIR TICKETS', 'HOTEL BOOKINGS', 'MICE & EVENTS', 'CORPORATE TRAVEL', 'PAN-INDIA', 'INTERNATIONAL', 'SINCE 2015'].map(label => ({ label })),
       heroVideo: this.props.heroVideoUrl || 'hero_video.mp4',
       hasHeroVideo: true,
