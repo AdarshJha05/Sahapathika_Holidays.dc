@@ -1,10 +1,7 @@
-﻿/**
- * motion.js — Sahapathika Holidays
- * Vanilla JS animation + hamburger engine. No frameworks.
- */
+﻿/* *- * motion.js - Sahapathika Holidays- * Vanilla JS animation + hamburger engine. No frameworks.-  */
 "use strict";
 
-/* 1. SCROLL-TRIGGERED REVEAL */
+/*  1. SCROLL-TRIGGERED REVEAL  */
 function initScrollReveals() {
   if (!("IntersectionObserver" in window)) return;
   function tagElements() {
@@ -30,7 +27,7 @@ function initScrollReveals() {
   mo.observe(document.body, { childList: true, subtree: true });
 }
 
-/* 2. CARD HOVER CLASSES */
+/*  2. CARD HOVER CLASSES  */
 function initCardHovers() {
   function apply() {
     document.querySelectorAll(
@@ -53,7 +50,7 @@ function initCardHovers() {
   mo.observe(document.body, { childList: true, subtree: true });
 }
 
-/* 3. GRID STAGGER SCROLL-IN */
+/*  3. GRID STAGGER SCROLL-IN  */
 function initGridStagger() {
   if (!("IntersectionObserver" in window)) return;
   var io = new IntersectionObserver(function(entries) {
@@ -73,7 +70,7 @@ function initGridStagger() {
   mo.observe(document.body, { childList: true, subtree: true });
 }
 
-/* 4. HERO SEARCH PARALLAX */
+/*  4. HERO SEARCH PARALLAX  */
 function initParallax() {
   var ticking = false;
   window.addEventListener("scroll", function() {
@@ -88,7 +85,7 @@ function initParallax() {
   }, { passive: true });
 }
 
-/* 5. TRUST BADGE FLOAT */
+/*  5. TRUST BADGE FLOAT  */
 function initBadgeFloat() {
   function apply() {
     document.querySelectorAll("div[style*=\"background:#D9A441\"]").forEach(function(b) {
@@ -100,7 +97,7 @@ function initBadgeFloat() {
   mo.observe(document.body, { childList: true, subtree: true });
 }
 
-/* 6. MARQUEE PAUSE ON HOVER */
+/*  6. MARQUEE PAUSE ON HOVER  */
 function initMarqueePause() {
   function apply() {
     document.querySelectorAll("[style*=\"animation:marquee\"]:not(.sh-marquee)").forEach(function(el) {
@@ -113,7 +110,7 @@ function initMarqueePause() {
   mo.observe(document.body, { childList: true, subtree: true });
 }
 
-/* 7. MEGA-MENU SLIDE-IN */
+/*  7. MEGA-MENU SLIDE-IN  */
 function initMegaMenu() {
   function tag() {
     document.querySelectorAll("div[style*=\"position:absolute\"][style*=\"top:100%\"][style*=\"background:#FAF6EF\"]:not(.sh-dropdown)").forEach(function(el) {
@@ -125,7 +122,7 @@ function initMegaMenu() {
   mo.observe(document.body, { childList: true, subtree: true });
 }
 
-/* 8. BUTTON MICRO FX */
+/*  8. BUTTON MICRO FX  */
 function initButtonEffects() {
   function apply() {
     document.querySelectorAll("button[style*=\"background:#E5483D\"]:not(.sh-btn),a[style*=\"background:#E5483D\"]:not(.sh-btn)").forEach(function(b) { b.classList.add("sh-btn"); });
@@ -136,7 +133,7 @@ function initButtonEffects() {
   mo.observe(document.body, { childList: true, subtree: true });
 }
 
-/* 9. INPUT GLOW */
+/*  9. INPUT GLOW  */
 function initInputGlow() {
   document.addEventListener("focusin", function(e) {
     if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") e.target.classList.add("sh-focused");
@@ -144,7 +141,7 @@ function initInputGlow() {
   document.addEventListener("focusout", function(e) { e.target.classList.remove("sh-focused"); });
 }
 
-/* 10. ACCORDION TRANSITIONS */
+/*  10. ACCORDION TRANSITIONS  */
 function initAccordions() {
   var mo = new MutationObserver(function(mutations) {
     mutations.forEach(function(m) {
@@ -157,11 +154,9 @@ function initAccordions() {
   mo.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["style"] });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   11. HAMBURGER MENU — injected outside x-dc, event-delegated
-   ═══════════════════════════════════════════════════════════ */
+/*  ===   11. HAMBURGER MENU - injected outside x-dc, event-delegated-   ===  */
 function initHamburger() {
-  /* ── Inject drawer into body (outside React) ── */
+  /*  === Inject drawer into body (outside React) ===  */
   if (!document.getElementById("sh-mobile-nav")) {
     var drawerHTML = '<nav id="sh-mobile-nav" aria-label="Mobile navigation" aria-hidden="true">' +
       '<div id="sh-mobile-backdrop"></div>' +
@@ -217,7 +212,7 @@ function initHamburger() {
     document.body.appendChild(div.firstChild);
   }
 
-  /* ── Open / Close helpers ── */
+  /*  === Open / Close helpers ===  */
   function nav()  { return document.getElementById("sh-mobile-nav"); }
   function ham()  { return document.getElementById("sh-hamburger"); }
 
@@ -238,7 +233,7 @@ function initHamburger() {
     document.querySelectorAll(".sh-mob-has-sub.sh-sub-open").forEach(function(b) { b.classList.remove("sh-sub-open"); });
   }
 
-  /* ── Navigate to page via React component buttons ── */
+  /*  === Navigate to page via React component buttons ===  */
   function goPage(page) {
     closeMenu();
     var map = {
@@ -256,11 +251,11 @@ function initHamburger() {
     }
   }
 
-  /* ── EVENT DELEGATION on document — survives React re-renders ── */
+  /*  === EVENT DELEGATION on document - survives React re-renders ===  */
   document.addEventListener("click", function(e) {
     var t = e.target;
 
-    /* Hamburger button or its children */
+    /*  Hamburger button or its children  */
     var hamBtn = t.closest ? t.closest("#sh-hamburger") : (t.id === "sh-hamburger" ? t : null);
     if (hamBtn) {
       var n = nav();
@@ -268,14 +263,14 @@ function initHamburger() {
       return;
     }
 
-    /* Backdrop click */
+    /*  Backdrop click  */
     if (t.id === "sh-mobile-backdrop") { closeMenu(); return; }
 
-    /* Close button */
+    /*  Close button  */
     var closeBtn = t.closest ? t.closest("#sh-mobile-close") : null;
     if (closeBtn) { closeMenu(); return; }
 
-    /* Sub-menu toggle */
+    /*  Sub-menu toggle  */
     var subBtn = t.closest ? t.closest(".sh-mob-has-sub") : null;
     if (subBtn) {
       var subId = "sh-sub-" + subBtn.dataset.sub;
@@ -288,31 +283,31 @@ function initHamburger() {
       return;
     }
 
-    /* Nav link */
+    /*  Nav link  */
     var navLink = t.closest ? t.closest(".sh-mob-link[data-page]") : null;
     if (navLink && navLink.dataset.page) { goPage(navLink.dataset.page); return; }
 
-    /* Sub link */
+    /*  Sub link  */
     var subLink = t.closest ? t.closest(".sh-mob-sub-link[data-page]") : null;
     if (subLink && subLink.dataset.page) { goPage(subLink.dataset.page); return; }
 
-    /* Plan my trip button */
+    /*  Plan my trip button  */
     var planBtn = t.closest ? t.closest(".sh-mob-plan") : null;
     if (planBtn) { goPage(planBtn.dataset.page || "contact"); return; }
   });
 
-  /* Escape key */
+  /*  Escape key  */
   document.addEventListener("keydown", function(e) {
     if (e.key === "Escape") { var n = nav(); if (n && n.classList.contains("sh-open")) closeMenu(); }
   });
 
-  /* Close on resize to desktop */
+  /*  Close on resize to desktop  */
   window.addEventListener("resize", function() {
     if (window.innerWidth > 1224) closeMenu();
   });
 }
 
-/* ── BOOT ── */
+/*  === BOOT ===  */
 function boot() {
   initScrollReveals();
   initCardHovers();
